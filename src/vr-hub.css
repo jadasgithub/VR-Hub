@@ -1,0 +1,2357 @@
+/* ─────────────────────────────────────────────────────────────
+   VR Hub — Two-layer theming system
+   ─────────────────────────────────────────────────────────────
+   SPARK BASE (default, data-layer="spark"):
+     --vr-* aliases map to official Axon Spark 2.0 tokens
+     from @axon-enterprise/styles/dist/theme.css
+
+   VISION LAYER (data-layer="vision"):
+     --vr-* aliases map to custom VR Hub design tokens
+     (warmer palette, distinct dark mode)
+
+   data-theme="light"|"dark" works in both layers.
+   ───────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════
+   SPARK BASE — light (default)
+   Uses official Spark 2.0 tokens from @axon-enterprise/styles theme.css
+   ═══════════════════════════════════════════════════════════════ */
+.vr-shell {
+  --vr-bg:            var(--surface800);      /* #f4f3ef — Spark Standard page bg */
+  --vr-bg-deeper:     var(--surface700);      /* #efeee8 */
+  --vr-surface:       var(--surface1000);     /* #ffffff — white cards */
+  --vr-surface-hover: var(--surface900);      /* #f9f9f7 */
+  --vr-border:        var(--neutral150);      /* #36393d1f */
+  --vr-border-light:  var(--neutral100);      /* #36393d14 */
+  --vr-border-hover:  var(--neutral200);      /* #36393d40 */
+  --vr-text:          var(--neutral1000);     /* #1a1a1a */
+  --vr-muted:         var(--neutral900);      /* #36393d */
+  --vr-dim:           var(--neutral600);      /* #36393d99 */
+  --vr-positive:      var(--green900);        /* #2e5e18 */
+  --vr-alert:         var(--red900);          /* #a01313 */
+  --vr-warning:       var(--amber900);        /* #7a4d00 */
+  --vr-info:          var(--blue900);         /* #165a8a */
+  --vr-accent:        var(--gold1000);        /* #fec62e */
+
+  --color-axon-accent:     var(--gold1000);       /* #fec62e — accent bar */
+  --nav-background:        var(--surface900);     /* #f9f9f7 — Spark Standard light nav */
+  --nav-logo-background:   var(--surface900);     /* #f9f9f7 — blends with light nav */
+  --nav-foreground:        #423e35;               /* warm dark brown — Spark nav text */
+  --nav-foreground-hover:  #0f0f0b;               /* near black */
+  --nav-active-background: var(--surface100);     /* #0f0f0b — Spark: dark bg on active */
+  --nav-active-foreground: var(--gold1000);       /* #fec62e — Spark: gold text on active */
+  --nav-bg-hover:          var(--neutral50);      /* #36393d0a — subtle hover */
+  --nav-border-right:      none;
+  --nav-toggle-dot:        var(--neutral500);     /* #36393d73 */
+  --nav-delta-color:       var(--neutral1000);    /* #1a1a1a */
+
+  /* Topbar — dark text (nav is now light) */
+  --vr-topbar-text:        var(--neutral1000);         /* #1a1a1a */
+  --vr-topbar-muted:       #423e35;                    /* warm dark brown */
+  --vr-topbar-link:        var(--blue900);              /* #165a8a */
+  --vr-topbar-icon-hover:  rgba(54, 57, 61, 0.07);
+  --vr-topbar-stamp-color: var(--blue900);
+  --vr-topbar-stamp-bg:    rgba(22, 90, 138, 0.10);
+
+  /* ── Shape & shadow tokens (Spark defaults) ── */
+  --vr-radius-card:        8px;
+  --vr-radius-panel:       8px;
+  --vr-radius-item:        6px;
+  --vr-shadow-card:        0 1px 2px rgba(0,0,0,0.08);
+  --vr-shadow-card-hover:  0 2px 6px rgba(0,0,0,0.10);
+  --vr-shadow-nav:         4px 0 8px 0 rgba(0,0,0,0.10);  /* Spark nav shadow */
+
+  font-family: 'IBM Plex Sans', 'IBM Plex Sans Fallback', Inter, 'Inter Fallback', system-ui, -apple-system, sans-serif;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--vr-bg);
+  color: var(--vr-text);
+}
+
+/* ══ SPARK BASE — dark ══ */
+.vr-shell[data-theme="dark"] {
+  --vr-bg:            var(--surface900d);     /* #141217 */
+  --vr-bg-deeper:     #0d0b10;
+  --vr-surface:       var(--surface800d);     /* #1f1d23 */
+  --vr-surface-hover: var(--surface700d);     /* #2c2a30 */
+  --vr-border:        var(--neutral150d);     /* #f2f2f21f */
+  --vr-border-light:  var(--neutral100d);     /* #f2f2f214 */
+  --vr-border-hover:  var(--neutral200d);     /* #f2f2f240 */
+  --vr-text:          var(--neutral1000d);    /* #f7f7f7 */
+  --vr-muted:         var(--neutral900d);     /* #f2f2f2 */
+  --vr-dim:           var(--neutral500d);     /* #f2f2f299 */
+  --vr-positive:      var(--green900d);       /* #8dd56a */
+  --vr-alert:         var(--red900d);         /* #ff8a8a */
+  --vr-warning:       var(--amber900d);       /* #f3c068 */
+  --vr-info:          var(--blue900d);        /* #6bc1ff */
+  --color-axon-accent:  var(--gold1000);         /* accent bar */
+
+  --nav-background:        var(--surface800d);   /* #1f1d23 */
+  --nav-logo-background:   #0f0f0b;             /* slightly darker header on dark nav */
+  --nav-foreground:        var(--surface200d);   /* #8f8e92 */
+  --nav-foreground-hover:  var(--neutral1000d); /* #f7f7f7 */
+  --nav-active-background: var(--gold1000);     /* #fec62e — Spark Standard dark active */
+  --nav-active-foreground: #000000;             /* black text on gold — Spark Standard */
+  --nav-bg-hover:          var(--neutral50d);   /* #f2f2f20d */
+  --nav-toggle-dot:        var(--neutral500d);  /* #f2f2f299 */
+
+  /* Topbar — light text on always-dark Spark dark nav */
+  --vr-topbar-text:        var(--neutral1000d);
+  --vr-topbar-muted:       var(--surface200d);
+  --vr-topbar-link:        #6bc1ff;
+  --vr-topbar-icon-hover:  rgba(255, 255, 255, 0.08);
+  --vr-topbar-stamp-color: #6bc1ff;
+  --vr-topbar-stamp-bg:    rgba(107, 193, 255, 0.12);
+
+  /* ── Shape & shadow tokens (Spark dark — same as light) ── */
+  --vr-radius-card:        8px;
+  --vr-radius-panel:       8px;
+  --vr-radius-item:        6px;
+  --vr-shadow-card:        0 1px 2px rgba(0,0,0,0.12);
+  --vr-shadow-card-hover:  0 2px 6px rgba(0,0,0,0.18);
+  --vr-shadow-nav:         4px 0 8px 0 rgba(0,0,0,0.10);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VISION LAYER — light
+   Custom VR Hub warm palette overrides Spark tokens
+   ═══════════════════════════════════════════════════════════════ */
+.vr-shell[data-layer="vision"] {
+  --color-axon-bg:           #f4f3ef;
+  --color-axon-bg-deeper:    #efeee8;
+  --color-axon-surface:      #ffffff;
+  --color-axon-surface-hover:#f9f9f7;
+  --color-axon-border:       #36393d24;
+  --color-axon-border-light: #36393d14;
+  --color-axon-border-hover: #36393d50;
+  --color-axon-text:         #1a1a1a;
+  --color-axon-muted:        #36393d;
+  --color-axon-dim:          #636568;
+  --color-axon-positive:     #2e5e18;
+  --color-axon-alert:        #a01313;
+  --color-axon-warning:      #7a4d00;
+  --color-axon-info:         #165a8a;
+  --color-axon-accent:       #fec62e;
+  --color-axon-accent-text:  #866600;
+  --color-axon-accent-dim:   #fec62e1f;
+
+  --nav-background:          #f4f3ef;                   /* warm cream — light nav */
+  --nav-logo-background:     #f4f3ef;                   /* matches nav */
+  --nav-foreground:          #6b6660;                   /* warm muted text */
+  --nav-foreground-hover:    #1a1a1a;
+  --nav-active-background:   rgba(254, 198, 46, 0.18);  /* soft gold tint — Vision active */
+  --nav-active-foreground:   #1a1a1a;
+  --nav-bg-hover:            rgba(54, 57, 61, 0.06);
+  --nav-border-right:        none;
+  --nav-toggle-dot:          rgba(54, 57, 61, 0.30);
+  --nav-delta-color:         #1a1a1a;
+
+  --vr-bg:            var(--color-axon-bg);
+  --vr-bg-deeper:     var(--color-axon-bg-deeper);
+  --vr-surface:       var(--color-axon-surface);
+  --vr-surface-hover: var(--color-axon-surface-hover);
+  --vr-border:        var(--color-axon-border);
+  --vr-border-light:  var(--color-axon-border-light);
+  --vr-border-hover:  var(--color-axon-border-hover);
+  --vr-text:          var(--color-axon-text);
+  --vr-muted:         var(--color-axon-muted);
+  --vr-dim:           var(--color-axon-dim);
+  --vr-positive:      var(--color-axon-positive);
+  --vr-alert:         var(--color-axon-alert);
+  --vr-warning:       var(--color-axon-warning);
+  --vr-info:          var(--color-axon-info);
+  --vr-accent:        var(--color-axon-accent);
+
+  /* Topbar — dark text on warm cream Vision light nav */
+  --vr-topbar-text:        #1a1a1a;
+  --vr-topbar-muted:       #6b6660;
+  --vr-topbar-link:        #165a8a;
+  --vr-topbar-icon-hover:  rgba(54, 57, 61, 0.07);
+  --vr-topbar-stamp-color: #165a8a;
+  --vr-topbar-stamp-bg:    rgba(22, 90, 138, 0.10);
+
+  /* ── Shape & shadow tokens (Vision light — VR Hub custom) ── */
+  --vr-radius-card:        16px;
+  --vr-radius-panel:       14px;
+  --vr-radius-item:        9px;
+  --vr-shadow-card:        0 1px 3px rgba(0,0,0,0.07), 0 1px 2px -1px rgba(0,0,0,0.05);
+  --vr-shadow-card-hover:  0 2px 8px rgba(0,0,0,0.09);
+  --vr-shadow-nav:         4px 0 8px 0 rgba(0,0,0,0.08);
+}
+
+/* ══ VISION LAYER — dark ══ */
+.vr-shell[data-layer="vision"][data-theme="dark"] {
+  --color-axon-bg:           #161614;
+  --color-axon-bg-deeper:    #111110;
+  --color-axon-surface:      #1f1f1d;
+  --color-axon-surface-hover:#292927;
+  --color-axon-border:       rgba(255, 255, 255, 0.10);
+  --color-axon-border-light: rgba(255, 255, 255, 0.06);
+  --color-axon-border-hover: rgba(255, 255, 255, 0.22);
+  --color-axon-text:         #f0efeb;
+  --color-axon-muted:        #c8c5bc;
+  --color-axon-dim:          #8c8880;
+
+  --nav-background:          #1f1f1d;
+  --nav-foreground:          #c8c5bc;
+  --nav-foreground-hover:    #f0efeb;
+  --nav-bg-hover:            rgba(255, 255, 255, 0.07);
+  --nav-active-background:   #292927;  /* dark surface — keep Vision dark distinct from Spark dark gold */
+  --nav-active-foreground:   #f0efeb;
+
+  --color-axon-info:    #6bc1ff;
+  --vr-info:            #6bc1ff;
+
+  /* Topbar — light text on dark charcoal Vision dark nav */
+  --vr-topbar-text:        #f0efeb;
+  --vr-topbar-muted:       #8c8880;
+  --vr-topbar-link:        #6bc1ff;
+  --vr-topbar-icon-hover:  rgba(255, 255, 255, 0.07);
+  --vr-topbar-stamp-color: #6bc1ff;
+  --vr-topbar-stamp-bg:    rgba(107, 193, 255, 0.12);
+
+  /* ── Shape & shadow tokens (Vision dark — same as Vision light) ── */
+  --vr-radius-card:        16px;
+  --vr-radius-panel:       14px;
+  --vr-radius-item:        9px;
+  --vr-shadow-card:        0 1px 3px rgba(0,0,0,0.18), 0 1px 2px -1px rgba(0,0,0,0.12);
+  --vr-shadow-card-hover:  0 2px 8px rgba(0,0,0,0.28);
+  --vr-shadow-nav:         4px 0 8px 0 rgba(0,0,0,0.22);
+}
+
+.vr-shell[data-theme="dark"] .vr-nav-logo svg {
+  color: var(--vr-accent);
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SHELL LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 3px accent bar at very top (full width) ── */
+.vr-accent-bar {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  background: var(--color-axon-accent);
+  z-index: 50;
+}
+
+/* ── Left sidebar nav ── */
+.vr-nav {
+  width: 64px;
+  flex-shrink: 0;
+  height: 100%;
+  padding-top: 3px; /* account for fixed accent bar */
+  display: flex;
+  flex-direction: column;
+  background: var(--nav-background);
+  box-shadow: var(--vr-shadow-nav);
+  overflow: hidden;
+  transition: width 0.2s ease;
+  z-index: 10;
+}
+
+.vr-nav--expanded {
+  width: 220px;
+}
+
+.vr-nav-logo {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  flex-shrink: 0;
+  background: var(--nav-logo-background);
+}
+
+.vr-nav--expanded .vr-nav-logo {
+  justify-content: flex-start;
+}
+
+.vr-nav-logo svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: var(--nav-foreground);
+}
+
+.vr-nav-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vr-nav-footer {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Avatar circle in the nav */
+.vr-nav-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-axon-accent);
+  color: #1a1a1a;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* Expand row — full-width, centered, matching ruby-slippers */
+.vr-nav-expand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  flex-shrink: 0;
+  transition: background 0.1s ease;
+}
+
+.vr-nav-expand-row:hover {
+  background: var(--nav-bg-hover);
+}
+
+.vr-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: var(--vr-radius-item);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--nav-foreground);
+  text-align: left;
+  transition: background 0.1s ease, color 0.1s ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.vr-nav--expanded .vr-nav-item {
+  justify-content: flex-start;
+  padding: 10px 12px;
+  gap: 11px;
+}
+
+.vr-nav-item svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.vr-nav-item:hover {
+  background: var(--nav-bg-hover);
+  color: var(--nav-foreground-hover);
+}
+
+.vr-nav-item:hover svg {
+  opacity: 1;
+}
+
+.vr-nav-item--active {
+  background: var(--nav-active-background) !important;
+  color: var(--nav-active-foreground) !important;
+}
+
+.vr-nav-item--active svg {
+  opacity: 1;
+}
+
+/* Label text — hidden when collapsed, shown when expanded */
+.vr-nav-label {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  transition: opacity 0.15s ease, width 0s 0.15s;
+  pointer-events: none;
+}
+
+.vr-nav--expanded .vr-nav-label {
+  opacity: 1;
+  width: auto;
+  transition: opacity 0.15s ease 0.05s;
+  pointer-events: auto;
+}
+
+.vr-nav-divider {
+  height: 1px;
+  background: var(--vr-border);
+  margin: 6px 4px;
+}
+
+/* ── Expand / collapse button with dot indicators ── */
+.vr-nav-expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Two-dot state indicator inside the expand button */
+.vr-nav-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vr-nav-dot {
+  display: block;
+  height: 6px;
+  border-radius: 100px;
+  transition: width 0.2s ease, background 0.2s ease;
+}
+
+.vr-nav-dot--active {
+  width: 12px;
+  background: var(--color-axon-accent);
+}
+
+.vr-nav-dot--inactive {
+  width: 12px;
+  background: var(--nav-toggle-dot);
+}
+
+/* When expanded, swap which dot is active */
+.vr-nav--expanded .vr-nav-dot--active {
+  background: var(--nav-toggle-dot);
+}
+
+.vr-nav--expanded .vr-nav-dot--inactive {
+  background: var(--color-axon-accent);
+}
+
+/* ── Main column (topbar + content) ── */
+.vr-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  padding-top: 3px; /* account for fixed accent bar */
+}
+
+/* ── Layer toggle — sidebar bottom ── */
+.vr-nav-layer-row {
+  padding: 8px;
+  flex-shrink: 0;
+  border-top: 1px solid var(--vr-border-light);
+}
+
+.vr-layer-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 8px 0;
+  border-radius: var(--vr-radius-item);
+  border: 1px solid var(--vr-border-hover);
+  background: transparent;
+  color: var(--vr-dim);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+}
+.vr-nav--expanded .vr-layer-toggle {
+  padding: 8px 12px;
+  justify-content: flex-start;
+}
+.vr-layer-toggle:hover {
+  background: var(--nav-bg-hover);
+  color: var(--vr-text);
+}
+.vr-layer-toggle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--vr-dim);
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+}
+.vr-layer-toggle-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+.vr-layer-toggle--vision {
+  border-color: var(--vr-accent);
+  color: var(--vr-text);
+  background: rgba(254, 198, 46, 0.08);
+}
+.vr-layer-toggle--vision:hover {
+  background: rgba(254, 198, 46, 0.15);
+}
+.vr-layer-toggle--vision .vr-layer-toggle-dot {
+  background: var(--vr-accent);
+}
+
+/* ── Top bar ── */
+.vr-topbar {
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: var(--nav-background);
+  border-bottom: 1px solid var(--vr-border);
+}
+
+.vr-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vr-topbar-back {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vr-topbar-link);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vr-topbar-back:hover { text-decoration: underline; }
+
+.vr-topbar-sep {
+  color: var(--vr-topbar-muted);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.vr-topbar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vr-topbar-text);
+}
+
+.vr-topbar-stamp {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vr-topbar-stamp-color);
+  background: var(--vr-topbar-stamp-bg);
+  padding: 2px 9px;
+  border-radius: 100px;
+  letter-spacing: 0.01em;
+}
+
+.vr-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vr-topbar-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--vr-radius-item);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vr-topbar-muted);
+  transition: background 0.1s ease;
+}
+
+.vr-topbar-icon-btn:hover {
+  background: var(--vr-topbar-icon-hover);
+  color: var(--vr-topbar-text);
+}
+
+/* ── Scrollable page content area ── */
+.vr-content {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--vr-bg);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE CONTENT STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Page layout ── */
+.vr-page {
+  padding: 28px 32px;
+  max-width: 1200px;
+}
+
+/* ── Page header ── */
+.vr-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.vr-page-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--vr-text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.vr-page-subtitle {
+  font-size: 13px;
+  color: var(--vr-dim);
+  margin: 5px 0 0;
+  line-height: 1.55;
+  max-width: 520px;
+}
+
+/* ── Section label ── */
+.vr-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vr-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0 0 12px;
+}
+
+/* ── Card grid ── */
+.vr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* Responsive grid handled in responsive section below */
+
+/* ── Card ── */
+.vr-card {
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: var(--vr-radius-card);
+  box-shadow: var(--vr-shadow-card);
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+  width: 100%;
+  font-family: inherit;
+  color: var(--vr-text);
+}
+
+.vr-card:hover {
+  background: var(--vr-surface-hover);
+  border-color: var(--vr-border-hover);
+  box-shadow: var(--vr-shadow-card-hover);
+}
+
+/* ── Icon box ── */
+.vr-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(54, 57, 61, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--vr-muted);
+}
+
+.vr-shell[data-theme="dark"] .vr-icon-box {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--vr-muted);
+}
+
+/* ── Card text ── */
+.vr-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vr-text);
+  margin: 0;
+}
+
+.vr-card-desc {
+  font-size: 12px;
+  color: var(--vr-dim);
+  line-height: 1.55;
+  margin: 4px 0 0;
+}
+
+/* ── Card footer ── */
+.vr-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--vr-border-light);
+  margin-top: auto;
+}
+
+.vr-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--vr-dim);
+  background: rgba(54, 57, 61, 0.06);
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.vr-shell[data-theme="dark"] .vr-tag {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* ── Buttons ── */
+.vr-btn-primary,
+.vr-btn-secondary,
+.vr-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--vr-radius-item);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.12s ease, background 0.1s ease;
+}
+
+.vr-btn-primary {
+  background: var(--vr-text);
+  color: var(--vr-surface);
+}
+.vr-btn-primary:hover { opacity: 0.82; }
+
+.vr-btn-secondary {
+  background: transparent;
+  color: var(--vr-muted);
+  border: 1px solid var(--vr-border-hover);
+}
+.vr-btn-secondary:hover { background: rgba(54, 57, 61, 0.06); }
+.vr-shell[data-theme="dark"] .vr-btn-secondary:hover { background: rgba(255,255,255,0.07); }
+
+.vr-btn-ghost {
+  background: transparent;
+  color: var(--vr-muted);
+  padding: 6px 12px;
+  font-weight: 500;
+}
+.vr-btn-ghost:hover { background: rgba(54, 57, 61, 0.06); }
+.vr-shell[data-theme="dark"] .vr-btn-ghost:hover { background: rgba(255,255,255,0.07); }
+
+/* ── Stamps / badges ── */
+.vr-stamp,
+.vr-stamp-blue,
+.vr-stamp-green,
+.vr-stamp-red,
+.vr-stamp-orange {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.vr-stamp-blue  { color: #165a8a; background: rgba(22, 90, 138, 0.10); }
+.vr-stamp-green { color: #2e5e18; background: rgba(46, 94, 24, 0.10); }
+.vr-stamp-red   { color: #a01313; background: rgba(160, 19, 19, 0.10); }
+.vr-stamp-orange{ color: #7a4d00; background: rgba(122, 77, 0, 0.10); }
+.vr-shell[data-theme="dark"] .vr-stamp-blue   { color: #6bc1ff; background: rgba(107, 193, 255, 0.12); }
+.vr-shell[data-theme="dark"] .vr-stamp-green  { color: #7acc54; background: rgba(122, 204, 84, 0.12); }
+.vr-shell[data-theme="dark"] .vr-stamp-red    { color: #f07070; background: rgba(240, 112, 112, 0.12); }
+.vr-shell[data-theme="dark"] .vr-stamp-orange { color: #f0aa40; background: rgba(240, 170, 64, 0.12); }
+
+/* ── Panel (replaces Spark Card in sub-pages) ── */
+.vr-panel {
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: var(--vr-radius-panel);
+  overflow: hidden;
+}
+
+.vr-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--vr-border-light);
+}
+
+.vr-panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vr-text);
+  margin: 0;
+}
+
+.vr-panel-body {
+  padding: 18px 20px;
+}
+
+/* ── KPI stat cards ── */
+.vr-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+/* Responsive grid handled in responsive section below */
+
+.vr-kpi-card {
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: var(--vr-radius-panel);
+  padding: 20px;
+  text-align: center;
+}
+
+.vr-kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--vr-text);
+  line-height: 1.1;
+}
+
+.vr-kpi-label {
+  font-size: 12px;
+  color: var(--vr-dim);
+  margin-top: 4px;
+}
+
+/* ── Layout helpers ── */
+.vr-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.vr-row--between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.vr-row--gap-s { gap: 8px; }
+.vr-row--gap-l { gap: 20px; }
+
+.vr-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vr-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.vr-stack--s { gap: 8px; }
+.vr-stack--l { gap: 24px; }
+
+/* ── Typography ── */
+.vr-body {
+  font-size: 13.5px;
+  color: var(--vr-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.vr-body-sm {
+  font-size: 13px;
+  color: var(--vr-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.vr-caption {
+  font-size: 12px;
+  color: var(--vr-dim);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ── Divider ── */
+.vr-divider {
+  height: 1px;
+  background: var(--vr-border-light);
+  margin: 12px 0;
+}
+
+/* ── Table rows (session list, device list, etc.) ── */
+.vr-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--vr-border-light);
+  gap: 16px;
+}
+.vr-list-row:last-child { border-bottom: none; }
+
+/* ── Sub-page layout ── */
+.vr-sub-page {
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+}
+
+.vr-sub-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ── Accordion ── */
+.vr-accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.vr-accordion-item {
+  border-bottom: 1px solid var(--vr-border-light);
+}
+.vr-accordion-item:last-child { border-bottom: none; }
+
+.vr-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--vr-text);
+  text-align: left;
+  gap: 12px;
+}
+.vr-accordion-trigger:hover { color: var(--vr-text); }
+
+.vr-accordion-chevron {
+  flex-shrink: 0;
+  color: var(--vr-dim);
+  transition: transform 0.18s ease;
+  font-size: 14px;
+}
+.vr-accordion-chevron--open { transform: rotate(180deg); }
+
+.vr-accordion-body {
+  padding: 0 0 16px;
+  font-size: 13px;
+  color: var(--vr-muted);
+  line-height: 1.65;
+}
+
+/* ── Playlist grid ── */
+.vr-playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+/* Responsive grid handled in responsive section below */
+
+/* ── Axon Assist FAB ── */
+.vr-assist-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1001;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--vr-text);
+  color: var(--vr-surface);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.vr-assist-fab:hover { opacity: 0.88; transform: scale(1.05); }
+
+.vr-assist-panel {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  width: 360px;
+  max-height: calc(100vh - 120px);
+  z-index: 1000;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: var(--vr-radius-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+}
+
+.vr-assist-header {
+  background: var(--vr-text);
+  color: var(--vr-surface);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.vr-assist-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.vr-assist-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.75);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+}
+.vr-assist-close:hover { color: #fff; background: rgba(255,255,255,0.12); }
+
+.vr-assist-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 340px;
+}
+
+.vr-assist-bubble {
+  max-width: 82%;
+  padding: 9px 13px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.vr-assist-bubble--user {
+  align-self: flex-end;
+  background: var(--vr-text);
+  color: var(--vr-surface);
+  border-bottom-right-radius: 2px;
+}
+.vr-assist-bubble--bot {
+  align-self: flex-start;
+  background: var(--vr-bg);
+  color: var(--vr-text);
+  border: 1px solid var(--vr-border);
+  border-bottom-left-radius: 2px;
+}
+
+.vr-assist-input-row {
+  padding: 10px 12px;
+  border-top: 1px solid var(--vr-border);
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.vr-assist-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--vr-border);
+  font-size: 13px;
+  outline: none;
+  color: var(--vr-text);
+  background: var(--vr-bg);
+  font-family: inherit;
+}
+.vr-assist-input:focus { border-color: var(--vr-border-hover); }
+
+.vr-assist-send {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--vr-text);
+  color: var(--vr-surface);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.vr-assist-send:hover { opacity: 0.82; }
+
+.vr-assist-footer {
+  padding: 6px 12px 10px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--vr-dim);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CMS — CONTENT MANAGEMENT (full-height app panel layout)
+   ═══════════════════════════════════════════════════════════════ */
+
+.vr-cms {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  padding: 14px;
+  gap: 14px;
+  background: var(--vr-bg-deeper);
+}
+
+/* ── Left column: Push Group Builder ── */
+.vr-cms-left {
+  width: 40%;
+  min-width: 340px;
+  display: flex;
+  flex-direction: column;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: var(--vr-radius-panel);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+
+.vr-cms-col-header {
+  padding: 11px 18px;
+  background: var(--vr-surface-hover);
+  border-bottom: 1px solid var(--vr-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  border-radius: var(--vr-radius-panel) var(--vr-radius-panel) 0 0;
+}
+
+.vr-cms-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--vr-dim);
+  margin: 0;
+}
+
+.vr-cms-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+}
+
+/* Push group name field */
+.vr-cms-name-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--vr-border);
+  border-radius: var(--vr-radius-item);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vr-text);
+  background: var(--vr-surface);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+.vr-cms-name-input:focus {
+  border-color: var(--vr-border-hover);
+  box-shadow: 0 0 0 3px rgba(54,57,61,0.07);
+}
+.vr-shell[data-theme="dark"] .vr-cms-name-input {
+  box-shadow: none;
+}
+.vr-cms-name-input:focus { border-color: var(--vr-info); }
+
+/* ── Send cards ── */
+.vr-send-card {
+  background: var(--vr-surface);
+  border: 1.5px solid var(--vr-border);
+  border-radius: var(--vr-radius-panel);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.vr-send-card--selecting {
+  border-color: var(--vr-info);
+  box-shadow: 0 0 0 3px rgba(22,90,138,0.1);
+}
+.vr-send-card-header {
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.vr-send-card-header:hover { background: var(--vr-surface-hover); }
+.vr-send-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--vr-dim);
+  margin: 0 0 2px;
+}
+.vr-send-summary {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vr-text);
+  margin: 0;
+}
+.vr-send-summary-arr { color: var(--vr-dim); margin: 0 5px; }
+.vr-send-chevron {
+  color: var(--vr-dim);
+  font-size: 11px;
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+.vr-send-chevron--open { transform: rotate(180deg); }
+.vr-send-body {
+  padding: 0 14px 14px;
+  border-top: 1px solid var(--vr-border-light);
+}
+.vr-send-field { margin-top: 13px; }
+.vr-send-field-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vr-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 5px;
+}
+
+/* Device chips */
+.vr-chip-row { display: flex; flex-wrap: wrap; gap: 4px; }
+.vr-chip {
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(22,90,138,0.3);
+  background: rgba(22,90,138,0.07);
+  color: var(--vr-info);
+  transition: background 0.1s;
+}
+.vr-chip:hover { background: rgba(22,90,138,0.13); }
+.vr-chip--s2 {
+  border-color: rgba(109,40,217,0.3);
+  background: rgba(109,40,217,0.07);
+  color: #6d28d9;
+}
+.vr-chip--s2:hover { background: rgba(109,40,217,0.13); }
+.vr-chip--fail {
+  border-color: rgba(160,19,19,0.3);
+  background: rgba(160,19,19,0.07);
+  color: var(--vr-alert);
+}
+.vr-shell[data-theme="dark"] .vr-chip { color: #6bc1ff; border-color: rgba(107,193,255,0.3); background: rgba(107,193,255,0.08); }
+.vr-shell[data-theme="dark"] .vr-chip--fail { color: #f07070; border-color: rgba(240,112,112,0.3); background: rgba(240,112,112,0.08); }
+
+/* Edit devices button — editing state */
+.vr-btn-editing {
+  background: var(--vr-info) !important;
+  color: #fff !important;
+  border-color: var(--vr-info) !important;
+}
+
+/* App blocks */
+.vr-app-block {
+  border: 1px solid var(--vr-border);
+  border-radius: 9px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.vr-app-block-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  cursor: pointer;
+  background: var(--vr-surface-hover);
+  transition: background 0.1s;
+  user-select: none;
+}
+.vr-app-block-row:hover { background: var(--vr-bg); }
+.vr-app-block-row--active {
+  background: rgba(22,90,138,0.07);
+  border-color: var(--vr-info);
+}
+.vr-shell[data-theme="dark"] .vr-app-block-row--active { background: rgba(107,193,255,0.08); }
+.vr-app-block-icon { font-size: 11px; color: var(--vr-dim); width: 14px; text-align: center; flex-shrink: 0; }
+.vr-app-block-icon--active { color: var(--vr-info); }
+.vr-app-block-name { flex: 1; font-size: 13px; font-weight: 600; color: var(--vr-text); }
+.vr-app-block-meta { font-size: 11px; color: var(--vr-dim); white-space: nowrap; }
+.vr-app-block-meta--set { color: var(--vr-info); font-weight: 600; }
+.vr-shell[data-theme="dark"] .vr-app-block-meta--set { color: #6bc1ff; }
+.vr-app-block-remove {
+  width: 20px; height: 20px; border-radius: 5px; border: none;
+  background: transparent; color: var(--vr-border-hover); cursor: pointer;
+  font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.vr-app-block-remove:hover { background: rgba(160,19,19,0.1); color: var(--vr-alert); }
+
+.vr-add-dashed {
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  color: var(--vr-dim);
+  border: 1.5px dashed var(--vr-border-hover);
+  border-radius: var(--vr-radius-item);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.vr-add-dashed:hover { border-color: var(--vr-info); color: var(--vr-info); background: rgba(22,90,138,0.05); }
+.vr-shell[data-theme="dark"] .vr-add-dashed:hover { background: rgba(107,193,255,0.06); }
+
+/* Push area */
+.vr-push-area { margin-top: 13px; padding-top: 13px; border-top: 1px solid var(--vr-border-light); }
+.vr-push-btn {
+  width: 100%; padding: 10px; color: var(--vr-surface); background: var(--vr-text);
+  border: none; border-radius: var(--vr-radius-item); font-size: 13px; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: opacity 0.12s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.vr-push-btn:hover { opacity: 0.82; }
+.vr-push-btn--s2 { background: #5b21b6; }
+
+.vr-progress-list { display: flex; flex-direction: column; gap: 5px; }
+.vr-progress-row { display: flex; align-items: center; gap: 8px; }
+.vr-prog-name { font-size: 11px; font-weight: 600; color: var(--vr-muted); width: 36px; flex-shrink: 0; }
+.vr-prog-track { flex: 1; background: var(--vr-border); border-radius: 100px; height: 5px; overflow: hidden; }
+.vr-prog-fill { height: 100%; border-radius: 100px; transition: width 0.5s ease; }
+.vr-prog-fill--loading { background: var(--vr-info); }
+.vr-prog-fill--done { background: var(--vr-positive); }
+.vr-prog-fill--fail { background: var(--vr-alert); }
+.vr-prog-status { font-size: 11px; width: 48px; text-align: right; flex-shrink: 0; }
+.vr-prog-ok { color: var(--vr-positive); font-weight: 600; }
+.vr-prog-ld { color: var(--vr-info); }
+.vr-prog-fail { color: var(--vr-alert); font-weight: 600; }
+
+.vr-push-result {
+  margin-top: 9px; padding: 7px 11px;
+  background: var(--vr-bg); border-radius: 9px; border: 1px solid var(--vr-border-light);
+  font-size: 12px; color: var(--vr-muted);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.vr-push-result--fail { background: rgba(122,77,0,0.07); border-color: rgba(122,77,0,0.2); }
+.vr-repush-link {
+  font-size: 11px; color: var(--vr-alert); font-weight: 600;
+  cursor: pointer; background: none; border: none; font-family: inherit; padding: 0;
+}
+.vr-repush-link:hover { text-decoration: underline; }
+
+.vr-add-send-btn {
+  width: 100%; padding: 10px; background: transparent; color: var(--vr-dim);
+  border: 2px dashed var(--vr-border-hover); border-radius: 12px;
+  font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit;
+  transition: all 0.15s; margin-bottom: 14px;
+}
+.vr-add-send-btn:hover { border-color: var(--vr-info); color: var(--vr-info); background: rgba(22,90,138,0.05); }
+
+/* ── Picker (left-column module picker) ── */
+.vr-cms-picker {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  background: var(--vr-surface);
+}
+.vr-cms-picker--vis { display: flex; }
+
+.vr-picker-header {
+  padding: 12px 16px 10px;
+  background: var(--vr-surface);
+  border-bottom: 1px solid var(--vr-border);
+  flex-shrink: 0;
+}
+.vr-picker-back {
+  background: none; border: none; color: var(--vr-info);
+  font-size: 12px; font-weight: 500; cursor: pointer; padding: 0 0 8px;
+  display: flex; align-items: center; gap: 4px; font-family: inherit;
+}
+.vr-picker-back:hover { text-decoration: underline; }
+.vr-picker-app-name { font-size: 14px; font-weight: 700; color: var(--vr-text); margin: 0; }
+.vr-picker-send-label { font-size: 11px; color: var(--vr-dim); margin: 2px 0 0; }
+
+.vr-picker-search-wrap { padding: 10px 16px; background: var(--vr-surface); flex-shrink: 0; position: relative; }
+.vr-picker-search {
+  width: 100%; padding: 7px 10px 7px 30px;
+  border: 1px solid var(--vr-border); border-radius: 8px;
+  font-size: 12px; color: var(--vr-text); background: var(--vr-bg);
+  outline: none; font-family: inherit;
+}
+.vr-picker-search:focus { border-color: var(--vr-border-hover); }
+.vr-picker-search-icon { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); color: var(--vr-dim); font-size: 12px; pointer-events: none; }
+
+.vr-picker-bulk-row {
+  padding: 7px 16px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--vr-border-light); flex-shrink: 0;
+  background: var(--vr-surface);
+}
+.vr-picker-bulk-btn {
+  font-size: 11px; font-weight: 600; color: var(--vr-info);
+  background: none; border: none; cursor: pointer; padding: 0; font-family: inherit;
+}
+.vr-picker-bulk-btn:hover { text-decoration: underline; }
+.vr-picker-count { font-size: 11px; color: var(--vr-dim); margin-left: auto; }
+
+.vr-picker-list { flex: 1; overflow-y: auto; padding: 6px 16px; background: var(--vr-bg); }
+.vr-picker-module-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 6px; border-radius: 8px; cursor: pointer;
+}
+.vr-picker-module-row:hover { background: var(--vr-surface); }
+.vr-picker-module-row input { width: 14px; height: 14px; accent-color: var(--vr-info); cursor: pointer; flex-shrink: 0; }
+.vr-picker-module-label { flex: 1; font-size: 12px; color: var(--vr-muted); cursor: pointer; }
+.vr-picker-module-size { font-size: 11px; color: var(--vr-dim); flex-shrink: 0; }
+.vr-picker-no-results { font-size: 12px; color: var(--vr-dim); text-align: center; padding: 20px 0; font-style: italic; }
+
+.vr-picker-footer { padding: 12px 16px; border-top: 1px solid var(--vr-border); flex-shrink: 0; background: var(--vr-surface); }
+.vr-storage-track { background: var(--vr-border); border-radius: 100px; height: 5px; overflow: hidden; margin-bottom: 7px; }
+.vr-storage-fill { height: 100%; border-radius: 100px; transition: width 0.3s ease, background 0.3s ease; background: var(--vr-info); }
+.vr-storage-fill--warn { background: var(--vr-warning); }
+.vr-storage-fill--over { background: var(--vr-alert); }
+.vr-storage-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--vr-dim); }
+.vr-storage-used { font-weight: 600; color: var(--vr-muted); }
+.vr-storage-used--warn { color: var(--vr-warning); }
+.vr-storage-used--over { color: var(--vr-alert); }
+
+/* Builder view (sibling of picker, hidden when picker open) */
+.vr-cms-builder { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+
+/* ── Right column: Fleet ── */
+.vr-cms-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: var(--vr-radius-panel);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.vr-fleet-topbar {
+  background: var(--vr-surface-hover); border-bottom: 1px solid var(--vr-border-light);
+  display: flex; align-items: center; gap: 18px; padding: 9px 18px; flex-shrink: 0;
+}
+.vr-fleet-status-pill { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--vr-muted); }
+.vr-fleet-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.vr-fleet-dot--ready { background: var(--vr-positive); }
+.vr-fleet-dot--loading { background: var(--vr-info); animation: vr-pulse 1.2s infinite; }
+.vr-fleet-dot--offline { background: var(--vr-dim); }
+.vr-fleet-dot--failed { background: var(--vr-alert); }
+@keyframes vr-pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+.vr-fleet-filters {
+  padding: 8px 18px; border-bottom: 1px solid var(--vr-border);
+  display: flex; align-items: center; gap: 6px; background: var(--vr-surface); flex-shrink: 0;
+}
+.vr-fleet-filter-btn {
+  padding: 3px 11px; border-radius: 100px; font-size: 12px; font-weight: 500;
+  cursor: pointer; border: 1px solid var(--vr-border); background: transparent;
+  color: var(--vr-dim); transition: all 0.12s; font-family: inherit;
+}
+.vr-fleet-filter-btn--active { background: var(--vr-text); color: var(--vr-surface); border-color: var(--vr-text); }
+.vr-fleet-filter-btn:hover:not(.vr-fleet-filter-btn--active) { background: var(--vr-surface-hover); color: var(--vr-muted); }
+
+.vr-fleet-body { flex: 1; display: flex; overflow: hidden; }
+
+/* Grid side */
+.vr-fleet-grid-area { flex: 1; overflow-y: auto; padding: 14px 16px; border-right: 1px solid var(--vr-border); }
+
+.vr-selecting-banner {
+  display: none; align-items: center; gap: 8px;
+  background: rgba(22,90,138,0.07); border: 1.5px solid var(--vr-info);
+  border-radius: 9px; padding: 7px 12px; margin-bottom: 11px;
+  font-size: 12px; color: var(--vr-info); font-weight: 500;
+}
+.vr-selecting-banner--vis { display: flex; }
+.vr-selecting-banner-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--vr-info); animation: vr-pulse 1.2s infinite; flex-shrink: 0; }
+.vr-shell[data-theme="dark"] .vr-selecting-banner { background: rgba(107,193,255,0.08); }
+
+.vr-fleet-section-label {
+  font-size: 11px; font-weight: 700; color: var(--vr-dim);
+  text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 7px;
+}
+.vr-device-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  gap: 5px; margin-bottom: 14px;
+}
+
+/* Device tiles */
+.vr-tile {
+  background: var(--vr-surface); border: 1.5px solid var(--vr-border);
+  border-radius: 10px; padding: 8px 5px 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  cursor: pointer; transition: all 0.12s; user-select: none; position: relative;
+}
+.vr-tile:hover { border-color: var(--vr-border-hover); box-shadow: 0 2px 6px rgba(0,0,0,0.07); transform: translateY(-1px); }
+.vr-tile--sel { border-color: var(--vr-info) !important; box-shadow: 0 0 0 3px rgba(22,90,138,0.12) !important; background: rgba(22,90,138,0.05); }
+.vr-tile--ready { border-color: rgba(46,94,24,0.35); }
+.vr-tile--loading { border-color: rgba(22,90,138,0.35); }
+.vr-tile--failed { border-color: rgba(160,19,19,0.4); background: rgba(160,19,19,0.03); }
+.vr-tile--offline { opacity: 0.42; }
+.vr-tile--in-send { border-color: var(--vr-info); }
+.vr-tile--unavail { opacity: 0.25; pointer-events: none; }
+
+.vr-tile-status-dot { width: 7px; height: 7px; border-radius: 50%; position: absolute; top: 6px; right: 6px; }
+.vr-tile-badge {
+  position: absolute; top: 5px; left: 5px;
+  font-size: 8px; font-weight: 800; color: #fff; background: var(--vr-info);
+  border-radius: 3px; padding: 1px 3px; line-height: 1.3;
+}
+.vr-tile-badge--s2 { background: #5b21b6; }
+.vr-tile-icon { font-size: 16px; line-height: 1; }
+.vr-tile-name { font-size: 10px; font-weight: 700; color: var(--vr-muted); }
+.vr-tile-serial { font-size: 8.5px; color: var(--vr-dim); font-family: monospace; }
+
+/* Detail panel */
+.vr-fleet-detail { width: 260px; flex-shrink: 0; background: var(--vr-surface); display: flex; flex-direction: column; overflow: hidden; }
+.vr-detail-placeholder {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px; padding: 24px; text-align: center; color: var(--vr-dim);
+}
+.vr-detail-placeholder-icon { font-size: 30px; opacity: 0.35; }
+.vr-detail-placeholder-text { font-size: 13px; line-height: 1.5; color: var(--vr-dim); margin: 0; }
+.vr-detail-content { flex: 1; overflow-y: auto; padding: 16px; display: none; }
+.vr-detail-content--vis { display: block; }
+.vr-detail-dname { font-size: 16px; font-weight: 700; color: var(--vr-text); margin: 0; }
+.vr-detail-serial { font-size: 11px; color: var(--vr-dim); font-family: monospace; margin: 1px 0 1px; }
+.vr-detail-dtype { font-size: 12px; color: var(--vr-dim); margin: 0 0 14px; }
+.vr-detail-section { margin-bottom: 14px; }
+.vr-detail-app-row {
+  border: 1px solid var(--vr-border); border-radius: 8px;
+  padding: 8px 10px; margin-bottom: 5px;
+}
+.vr-detail-app-name { font-size: 12px; font-weight: 600; color: var(--vr-text); margin: 0 0 5px; }
+.vr-detail-modules { display: flex; flex-wrap: wrap; gap: 3px; }
+.vr-detail-mod-tag {
+  background: rgba(54,57,61,0.06); color: var(--vr-muted);
+  padding: 2px 7px; border-radius: 100px; font-size: 10px;
+}
+.vr-shell[data-theme="dark"] .vr-detail-mod-tag { background: rgba(255,255,255,0.07); }
+.vr-detail-sync { font-size: 12px; color: var(--vr-dim); margin: 0; }
+.vr-detail-footer { padding: 12px 16px; border-top: 1px solid var(--vr-border-light); flex-shrink: 0; display: none; }
+.vr-detail-footer--vis { display: block; }
+.vr-detail-close {
+  border: 1px solid var(--vr-border); background: var(--vr-surface);
+  border-radius: 6px; width: 26px; height: 26px; cursor: pointer;
+  color: var(--vr-dim); font-size: 13px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.vr-detail-close:hover { background: var(--vr-bg); color: var(--vr-text); }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PLAYLISTS PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Two-column layout ── */
+.vr-playlists-layout {
+  display: flex;
+  height: 500px;
+  border: 1px solid var(--vr-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--vr-surface);
+}
+
+/* ── Catalog pane (left) ── */
+.vr-catalog-pane {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--vr-border-light);
+  overflow: hidden;
+}
+
+.vr-catalog-filters {
+  padding: 13px 18px 11px;
+  border-bottom: 1px solid var(--vr-border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: var(--nav-background);
+  flex-shrink: 0;
+}
+
+.vr-catalog-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: 9px;
+  padding: 0 12px;
+  flex: 1;
+}
+.vr-catalog-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--vr-text);
+}
+.vr-catalog-search-input::placeholder { color: var(--vr-dim); }
+
+.vr-catalog-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.vr-catalog-filter-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--vr-dim);
+  white-space: nowrap;
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
+/* Topic filter chips */
+.vr-topic-chip {
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  background: rgba(54,57,61,0.07);
+  color: var(--vr-dim);
+  white-space: nowrap;
+  transition: background 0.1s, color 0.1s;
+}
+.vr-topic-chip--active {
+  background: var(--vr-text);
+  color: var(--vr-surface);
+}
+.vr-shell[data-theme="dark"] .vr-topic-chip { background: rgba(255,255,255,0.07); }
+.vr-shell[data-theme="dark"] .vr-topic-chip--active { background: var(--vr-text); color: var(--vr-surface); }
+
+/* Weapon filter chips */
+.vr-weapon-chip {
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: box-shadow 0.1s;
+}
+.vr-weapon-chip--taser   { color: var(--vr-info);    background: rgba(22,90,138,0.05); }
+.vr-weapon-chip--handgun { color: var(--vr-dim);     background: transparent; border-color: var(--vr-border-hover); }
+.vr-weapon-chip--rifle   { color: var(--vr-warning); background: rgba(122,77,0,0.05); }
+.vr-weapon-chip--active  { box-shadow: 0 0 0 2px currentColor; }
+.vr-shell[data-theme="dark"] .vr-weapon-chip--taser  { background: rgba(107,193,255,0.08); }
+.vr-shell[data-theme="dark"] .vr-weapon-chip--rifle  { background: rgba(240,170,64,0.08); }
+
+/* ── Scenario list ── */
+.vr-scenario-list {
+  flex: 1;
+  overflow-y: auto;
+}
+.vr-scenario-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 18px;
+  gap: 12px;
+  border-bottom: 1px solid var(--vr-border-light);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.vr-scenario-row:last-child { border-bottom: none; }
+.vr-scenario-row:hover { background: var(--vr-surface-hover); }
+.vr-scenario-row--added { opacity: 0.45; }
+
+.vr-scenario-row-left  { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vr-scenario-row-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+
+.vr-scenario-name { font-size: 13px; font-weight: 600; color: var(--vr-text); }
+.vr-scenario-desc { font-size: 11.5px; color: var(--vr-dim); line-height: 1.4; }
+
+.vr-scenario-tags {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.vr-tag-divider {
+  display: inline-block;
+  width: 1px;
+  height: 11px;
+  background: var(--vr-border-hover);
+  margin: 0 2px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Weapon badges (inline in rows) */
+.vr-weapon-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 100px;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+}
+.vr-weapon-badge--taser   { color: var(--vr-info);    background: rgba(22,90,138,0.05); }
+.vr-weapon-badge--handgun { color: var(--vr-dim);     background: rgba(54,57,61,0.04);  border-color: var(--vr-border-hover); }
+.vr-weapon-badge--rifle   { color: var(--vr-warning); background: rgba(122,77,0,0.04); }
+.vr-shell[data-theme="dark"] .vr-weapon-badge--taser  { background: rgba(107,193,255,0.08); }
+.vr-shell[data-theme="dark"] .vr-weapon-badge--rifle  { background: rgba(240,170,64,0.08); }
+
+/* Add pill */
+.vr-add-pill {
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 100px;
+  font-size: 10.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  background: rgba(54,57,61,0.07);
+  color: var(--vr-dim);
+  transition: background 0.1s, color 0.1s;
+  white-space: nowrap;
+}
+.vr-add-pill:hover:not(:disabled) { background: var(--vr-text); color: var(--vr-surface); }
+.vr-add-pill--added { background: rgba(46,94,24,0.10); color: var(--vr-positive); }
+.vr-add-pill:disabled { opacity: 0.5; cursor: default; }
+
+/* ── Builder tray (right) ── */
+.vr-builder-tray {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--nav-background);
+  overflow: hidden;
+}
+
+.vr-tray-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--vr-border-light);
+  flex-shrink: 0;
+  background: var(--vr-bg);
+}
+.vr-tray-tab {
+  flex: 1;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vr-dim);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: color 0.1s;
+}
+.vr-tray-tab--active {
+  color: var(--vr-text);
+  border-bottom-color: var(--vr-text);
+  background: var(--nav-background);
+}
+
+.vr-tray-name-section {
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--vr-border-light);
+  flex-shrink: 0;
+}
+.vr-tray-field-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vr-dim);
+  margin-bottom: 4px;
+}
+.vr-tray-name-input {
+  width: 100%;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: 8px;
+  height: 32px;
+  padding: 0 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--vr-text);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.vr-tray-name-input:focus { border-color: var(--vr-border-hover); }
+.vr-tray-meta { font-size: 11px; color: var(--vr-dim); margin-top: 4px; }
+
+.vr-tray-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.vr-tray-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vr-dim);
+  margin-bottom: 6px;
+}
+
+/* Scenario slots */
+.vr-slot {
+  height: 50px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 10px;
+  margin-bottom: 5px;
+}
+.vr-slot--filled {
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+}
+.vr-slot--empty {
+  background: transparent;
+  border: 1.5px dashed var(--vr-border-hover);
+}
+.vr-slot-num    { font-size: 11px; font-weight: 700; color: var(--vr-dim); width: 13px; text-align: center; flex-shrink: 0; }
+.vr-slot-content { flex: 1; min-width: 0; }
+.vr-slot-name   { font-size: 12px; font-weight: 600; color: var(--vr-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vr-slot-sub    { font-size: 10.5px; color: var(--vr-dim); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+.vr-slot-remove {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  background: rgba(54,57,61,0.07);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--vr-dim); font-weight: 700;
+  flex-shrink: 0; border: none; cursor: pointer; font-family: inherit;
+  transition: background 0.1s, color 0.1s;
+}
+.vr-slot-remove:hover { background: rgba(160,19,19,0.10); color: var(--vr-alert); }
+.vr-slot-add-label { font-size: 11.5px; color: var(--vr-dim); font-weight: 500; }
+
+/* Assignment toggle */
+.vr-assign-toggle {
+  display: flex;
+  background: rgba(54,57,61,0.07);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+.vr-shell[data-theme="dark"] .vr-assign-toggle { background: rgba(255,255,255,0.07); }
+.vr-assign-btn {
+  flex: 1; height: 26px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: var(--vr-dim);
+  cursor: pointer; border: none; background: transparent;
+  font-family: inherit; transition: background 0.1s, color 0.1s;
+}
+.vr-assign-btn--active {
+  background: var(--vr-surface);
+  color: var(--vr-text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.10);
+}
+
+.vr-assign-expanded { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.vr-assign-expanded-label {
+  font-size: 9.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--vr-dim);
+}
+.vr-group-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.vr-group-chip {
+  height: 24px; padding: 0 10px; border-radius: 100px;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit;
+  background: rgba(54,57,61,0.07); color: var(--vr-dim);
+  transition: background 0.1s, color 0.1s;
+}
+.vr-group-chip--active { background: var(--vr-text); color: var(--vr-surface); }
+.vr-shell[data-theme="dark"] .vr-group-chip { background: rgba(255,255,255,0.07); }
+
+.vr-assign-success {
+  background: rgba(46,94,24,0.10);
+  color: var(--vr-positive);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.vr-shell[data-theme="dark"] .vr-assign-success { background: rgba(122,204,84,0.12); color: #7acc54; }
+
+/* Saved playlists panel */
+.vr-saved-search { padding: 10px 16px; border-bottom: 1px solid var(--vr-border-light); flex-shrink: 0; }
+.vr-saved-list { flex: 1; overflow-y: auto; }
+.vr-saved-item {
+  display: flex; align-items: flex-start;
+  padding: 10px 16px; gap: 10px;
+  border-bottom: 1px solid var(--vr-border-light);
+  cursor: pointer; border: none; background: transparent;
+  width: 100%; text-align: left; font-family: inherit;
+  transition: background 0.1s;
+}
+.vr-saved-item:hover { background: var(--vr-surface-hover); }
+.vr-saved-item--active { background: var(--vr-bg-deeper); }
+.vr-saved-item:last-child { border-bottom: none; }
+.vr-saved-item-left { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vr-saved-item-name { font-size: 12.5px; font-weight: 600; color: var(--vr-text); }
+.vr-saved-item-meta { font-size: 11px; color: var(--vr-dim); }
+.vr-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.vr-status-dot--active { background: var(--vr-positive); }
+.vr-status-dot--draft  { background: var(--vr-dim); }
+
+/* ── Completion section ── */
+.vr-completion-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: 14px;
+}
+
+.vr-progress-bar {
+  width: 100px; height: 5px;
+  background: var(--vr-border);
+  border-radius: 100px; overflow: hidden;
+}
+.vr-progress-fill {
+  height: 100%;
+  background: var(--vr-positive);
+  border-radius: 100px;
+  transition: width 0.3s ease;
+}
+
+.vr-completion-field { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.vr-field-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--vr-dim);
+}
+.vr-field-select {
+  height: 34px;
+  background: var(--vr-bg);
+  border: 1px solid var(--vr-border);
+  border-radius: 9px;
+  padding: 0 10px;
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--vr-text);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.vr-field-select:focus { border-color: var(--vr-border-hover); }
+
+/* Roster */
+.vr-roster-table { border: 1px solid var(--vr-border); border-radius: 12px; overflow: hidden; }
+.vr-roster-head {
+  display: grid; grid-template-columns: 2fr 2fr 1.4fr 1fr;
+  padding: 8px 18px;
+  background: var(--vr-surface-hover);
+  border-bottom: 1px solid var(--vr-border-light);
+}
+.vr-roster-head-cell { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--vr-dim); }
+.vr-roster-row {
+  display: grid; grid-template-columns: 2fr 2fr 1.4fr 1fr;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--vr-border-light);
+  align-items: center;
+  background: var(--vr-surface);
+}
+.vr-roster-row:last-child { border-bottom: none; }
+.vr-roster-row--pending { background: rgba(54,57,61,0.015); }
+.vr-shell[data-theme="dark"] .vr-roster-row { background: var(--vr-surface); }
+.vr-shell[data-theme="dark"] .vr-roster-row--pending { background: rgba(255,255,255,0.02); }
+
+.vr-roster-name     { font-size: 13px; font-weight: 600; color: var(--vr-text); }
+.vr-roster-playlist { font-size: 12px; color: var(--vr-muted); }
+.vr-roster-date     { font-size: 12px; color: var(--vr-dim); }
+.vr-roster-status {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 100px; white-space: nowrap;
+}
+.vr-roster-status--done    { background: rgba(46,94,24,0.10);  color: var(--vr-positive); }
+.vr-roster-status--pending { background: rgba(54,57,61,0.07);  color: var(--vr-dim); }
+.vr-shell[data-theme="dark"] .vr-roster-status--done    { background: rgba(122,204,84,0.12); color: #7acc54; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   EXTRACTED INLINE STYLES (for responsive overrides)
+   ═══════════════════════════════════════════════════════════════ */
+
+.vr-qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.vr-session-list {
+  padding: 0 20px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.vr-list-row-meta {
+  align-items: center;
+}
+
+.vr-list-row-date {
+  min-width: 90px;
+  text-align: right;
+}
+
+.vr-list-row-status {
+  min-width: 90px;
+  text-align: center;
+}
+
+/* ── Hamburger button (hidden on desktop) ── */
+.vr-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--vr-radius-item);
+  color: var(--vr-topbar-muted);
+  flex-shrink: 0;
+  transition: background 0.1s ease;
+}
+.vr-hamburger:hover {
+  background: var(--vr-topbar-icon-hover);
+  color: var(--vr-topbar-text);
+}
+
+/* ── Mobile nav overlay backdrop ── */
+.vr-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 35;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — Spark Design System Breakpoints
+   Small (s): max-width 599px  — phones
+   Medium (m): 600–1023px      — tablets
+   Large (l): 1024px+          — desktop (default, no changes)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Responsive utilities ── */
+.vr-hide-mobile  { }
+.vr-hide-tablet  { }
+.vr-hide-desktop { }
+.vr-show-mobile  { display: none !important; }
+
+/* ────────────────────────────────────────────────────
+   TABLET + MOBILE (below desktop breakpoint)
+   ──────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  /* Show hamburger, hide desktop nav expand */
+  .vr-hamburger { display: flex; }
+  .vr-nav-expand-row { display: none; }
+  .vr-hide-desktop { display: none !important; }
+
+  /* Nav becomes fixed overlay drawer */
+  .vr-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 220px;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .vr-nav--mobile-open {
+    transform: translateX(0);
+  }
+
+  /* Show overlay backdrop when nav is open */
+  .vr-nav--mobile-open ~ .vr-main .vr-overlay,
+  .vr-overlay {
+    display: block;
+  }
+  .vr-overlay { display: block; }
+
+  /* Nav always looks expanded when open as drawer */
+  .vr-nav--mobile-open .vr-nav-item {
+    justify-content: flex-start;
+    padding: 10px 12px;
+    gap: 11px;
+  }
+  .vr-nav--mobile-open .vr-nav-label {
+    opacity: 1;
+    width: auto;
+    transition: opacity 0.15s ease 0.05s;
+    pointer-events: auto;
+  }
+  .vr-nav--mobile-open .vr-nav-logo {
+    justify-content: flex-start;
+  }
+  .vr-nav--mobile-open .vr-layer-toggle {
+    padding: 8px 12px;
+    justify-content: flex-start;
+  }
+
+  /* Main takes full width */
+  .vr-main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* Touch-friendly sizing */
+  .vr-nav-item { min-height: 44px; }
+  .vr-btn-primary,
+  .vr-btn-secondary,
+  .vr-btn-ghost { min-height: 44px; padding: 10px 16px; }
+  .vr-topbar-icon-btn { min-width: 44px; min-height: 44px; }
+  .vr-accordion-trigger { min-height: 48px; padding: 16px 0; }
+  .vr-scenario-row { padding: 14px 16px; }
+
+  /* Axon Assist — constrain panel */
+  .vr-assist-panel {
+    max-width: calc(100vw - 48px);
+    right: 16px;
+  }
+}
+
+/* ────────────────────────────────────────────────────
+   TABLET ONLY (600–1023px)
+   ──────────────────────────────────────────────────── */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .vr-hide-tablet { display: none !important; }
+
+  /* Topbar */
+  .vr-topbar { padding: 0 16px; }
+
+  /* Page padding */
+  .vr-page { padding: 24px 20px; }
+  .vr-sub-page { padding: 20px 20px; }
+
+  /* Grids — 2 columns */
+  .vr-grid { grid-template-columns: repeat(2, 1fr); }
+  .vr-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* CMS — adjusted proportions */
+  .vr-cms-left { width: 50%; min-width: 280px; }
+  .vr-fleet-detail { width: 200px; }
+
+  /* Playlists — narrower tray */
+  .vr-builder-tray { width: 240px; }
+}
+
+/* ────────────────────────────────────────────────────
+   MOBILE (below 600px — Spark small breakpoint)
+   ──────────────────────────────────────────────────── */
+@media (max-width: 599px) {
+  .vr-hide-mobile { display: none !important; }
+  .vr-show-mobile { display: flex !important; }
+
+  /* Topbar — compact */
+  .vr-topbar { padding: 0 12px; }
+  .vr-topbar-stamp { display: none; }
+  .vr-topbar-back { font-size: 0; } /* hide text, keep arrow */
+  .vr-topbar-back::before { content: "←"; font-size: 16px; }
+
+  /* Page padding — tighter */
+  .vr-page { padding: 20px 16px; }
+  .vr-sub-page { padding: 16px 16px; gap: 16px; }
+
+  /* Page header — stack vertically */
+  .vr-page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Sub-page header — stack vertically */
+  .vr-sub-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Grids — single column */
+  .vr-grid { grid-template-columns: 1fr; }
+  .vr-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .vr-playlist-grid { grid-template-columns: 1fr; }
+
+  /* List rows — stack vertically */
+  .vr-list-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .vr-list-row-meta {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .vr-list-row-date {
+    min-width: unset;
+    text-align: left;
+  }
+  .vr-list-row-status {
+    min-width: unset;
+    text-align: left;
+  }
+
+  /* Session list — less padding */
+  .vr-session-list { padding: 0 12px; }
+
+  /* Filter rows — wrap */
+  .vr-row { flex-wrap: wrap; }
+
+  /* Roster table — stack on mobile */
+  .vr-roster-head { display: none; }
+  .vr-roster-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 16px;
+  }
+
+  /* Panels — tighter padding */
+  .vr-panel-header { padding: 12px 16px; }
+  .vr-panel-body { padding: 14px 16px; }
+
+  /* Axon Assist — full-screen on mobile */
+  .vr-assist-panel {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+    z-index: 1100;
+  }
+  .vr-assist-messages { max-height: none; flex: 1; }
+  .vr-assist-fab { bottom: 20px; right: 20px; }
+
+  /* CMS — stack columns vertically */
+  .vr-cms {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+  .vr-cms-left {
+    width: 100%;
+    min-width: unset;
+    max-height: 60vh;
+  }
+  .vr-cms-right {
+    width: 100%;
+    flex: none;
+    height: 60vh;
+  }
+  .vr-fleet-body { flex-direction: column; }
+  .vr-fleet-detail {
+    width: 100%;
+    max-height: 50vh;
+  }
+
+  /* Playlists — stack columns */
+  .vr-playlists-layout {
+    flex-direction: column;
+    height: auto;
+  }
+  .vr-catalog-pane {
+    max-height: 50vh;
+    border-right: none;
+    border-bottom: 1px solid var(--vr-border-light);
+  }
+  .vr-builder-tray { width: 100%; }
+}
+
+/* ── Remove old scattered breakpoints (now handled above) ── */
+/* Note: The old @media queries at lines 655-656, 839, 997 are
+   superseded by the unified responsive section above. They remain
+   as fallbacks but the new rules take priority due to specificity. */
