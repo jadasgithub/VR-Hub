@@ -2057,6 +2057,538 @@
 
 
 /* ═══════════════════════════════════════════════════════════════
+   FLEET DASHBOARD
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Disabled card ── */
+.vr-card--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.vr-card--disabled:hover {
+  border-color: var(--vr-border);
+  transform: none;
+}
+
+/* ── Two-column layout (matches TASER dashboard) ── */
+.vr-fleet-layout {
+  display: flex;
+  gap: 24px;
+  min-height: 0;
+}
+
+/* ── Left sidebar ── */
+.vr-fleet-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.vr-fleet-device-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.vr-fleet-device-image {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--vr-bg);
+  border: 2px solid var(--vr-border);
+}
+.vr-fleet-device-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.vr-fleet-device-select {
+  appearance: none;
+  width: 100%;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: 8px;
+  padding: 8px 32px 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vr-text);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+.vr-fleet-device-select:hover { border-color: var(--vr-accent); }
+.vr-fleet-device-select:focus { outline: 2px solid var(--vr-accent); outline-offset: 1px; }
+
+/* ── Alerts panel ── */
+.vr-fleet-alerts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vr-fleet-alerts-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vr-text);
+}
+.vr-fleet-alert-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vr-fleet-alert-badge {
+  margin-left: auto;
+  min-width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 100px;
+  background: rgba(54,57,61,0.08);
+  color: var(--vr-dim);
+}
+.vr-fleet-alert-badge--priority {
+  background: rgba(220,50,50,0.12);
+  color: var(--vr-alert);
+}
+.vr-shell[data-theme="dark"] .vr-fleet-alert-badge {
+  background: rgba(255,255,255,0.08);
+}
+.vr-shell[data-theme="dark"] .vr-fleet-alert-badge--priority {
+  background: rgba(255,80,80,0.15);
+}
+
+/* ── Gray stamp (for offline status) ── */
+.vr-stamp-gray {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+  background: rgba(54,57,61,0.08); color: var(--vr-dim);
+}
+.vr-shell[data-theme="dark"] .vr-stamp-gray {
+  background: rgba(255,255,255,0.08); color: var(--vr-dim);
+}
+
+/* ── Right main content ── */
+.vr-fleet-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Tabs ── */
+.vr-fleet-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--vr-border);
+}
+.vr-fleet-tab {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vr-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.vr-fleet-tab:hover { color: var(--vr-text); }
+.vr-fleet-tab--active {
+  color: var(--vr-text);
+  border-bottom-color: var(--vr-accent);
+}
+
+/* ── Compact stat row (matches TASER "Total Devices In Use" row) ── */
+.vr-fleet-stats-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.vr-fleet-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vr-fleet-stat-icon {
+  font-size: 8px;
+  color: var(--vr-accent);
+}
+.vr-fleet-stat-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vr-text);
+}
+
+/* ── Section titles (ROM, Firmware, etc.) ── */
+.vr-fleet-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vr-fleet-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.vr-fleet-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vr-text);
+}
+
+/* ── Storage bar ── */
+.vr-fleet-storage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vr-fleet-storage-bar {
+  width: 100%;
+  height: 12px;
+  background: var(--vr-border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.vr-fleet-storage-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: var(--vr-accent);
+  transition: width 0.4s ease;
+}
+.vr-fleet-storage-bar--agg {
+  height: 16px;
+  margin-bottom: 8px;
+}
+.vr-fleet-storage-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vr-fleet-storage-fill--warn {
+  background: var(--vr-alert);
+}
+.vr-fleet-storage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+.vr-fleet-storage-device {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vr-fleet-storage-device-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vr-fleet-storage-device .vr-fleet-storage-bar {
+  height: 6px;
+}
+
+/* ── Scheduled Updates ── */
+.vr-fleet-schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vr-fleet-schedule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: 8px;
+}
+.vr-fleet-schedule--none {
+  color: var(--vr-dim);
+  font-style: italic;
+}
+
+/* ── Agency Settings grid ── */
+.vr-fleet-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.vr-fleet-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: 8px;
+}
+
+/* ── Small button variant ── */
+.vr-btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  gap: 4px;
+}
+
+/* ── Side-by-side donuts row ── */
+.vr-fleet-donuts-row {
+  display: flex;
+  gap: 16px;
+}
+.vr-fleet-section--half {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vr-fleet-section--half .vr-fleet-section-header {
+  width: 100%;
+}
+.vr-fleet-section--half .vr-fleet-progress-bar {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* ── Donut + progress block ── */
+.vr-fleet-donut-block {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.vr-fleet-donut-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Donut charts ── */
+.vr-donut-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+.vr-donut-svg { width: 130px; height: 130px; }
+.vr-donut-pct {
+  font-size: 22px;
+  font-weight: 700;
+  fill: var(--vr-text);
+}
+.vr-donut-sub {
+  font-size: 8px;
+  fill: var(--vr-muted);
+}
+
+/* ── Fleet progress bars ── */
+.vr-fleet-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--vr-border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.vr-fleet-progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+/* ── Inventory: status bar ── */
+.vr-fleet-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.vr-fleet-status-dot {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Inventory: toolbar (filters + view toggle) ── */
+.vr-fleet-inv-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vr-fleet-inv-filters {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+}
+.vr-fleet-view-toggle {
+  display: flex;
+  gap: 2px;
+  background: var(--vr-surface);
+  border: 1px solid var(--vr-border);
+  border-radius: 8px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.vr-fleet-view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--vr-dim);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.vr-fleet-view-btn:hover { color: var(--vr-fg); background: var(--vr-hover); }
+.vr-fleet-view-btn--active { color: var(--vr-fg); background: var(--vr-hover); }
+
+/* ── Inventory: list view ── */
+.vr-fleet-list {
+  border: 1px solid var(--vr-border);
+  border-radius: 14px;
+  overflow-x: auto;
+  background: var(--vr-surface);
+}
+.vr-fleet-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+.vr-fleet-table th,
+.vr-fleet-table td {
+  padding: 10px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+.vr-fleet-table th {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vr-dim);
+  border-bottom: 1px solid var(--vr-border);
+  background: var(--vr-bg);
+}
+.vr-fleet-table td {
+  font-size: 13px;
+  color: var(--vr-fg);
+  border-bottom: 1px solid var(--vr-border);
+}
+.vr-fleet-table tr:last-child td { border-bottom: none; }
+.vr-fleet-table tbody tr { cursor: pointer; transition: background 0.12s; }
+.vr-fleet-table tbody tr:hover { background: var(--vr-hover); }
+.vr-fleet-table tbody tr.vr-fleet-list-row--sel { background: rgba(22,90,138,0.08); }
+.vr-fleet-table .vr-col-serial { font-family: monospace; font-size: 11px; }
+.vr-fleet-table .vr-col-ver { font-size: 12px; }
+.vr-fleet-table .vr-col-storage { font-size: 12px; }
+.vr-fleet-table .vr-col-checkin { color: var(--vr-muted); }
+.vr-fleet-list-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+.vr-fleet-batt--low { color: var(--vr-alert); }
+
+/* ── Inventory: search input (inline in toolbar) ── */
+.vr-fleet-search-input {
+  flex: 1;
+  min-width: 120px;
+  max-width: 220px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border: 1px solid var(--vr-border);
+  border-radius: 8px;
+  background: var(--vr-surface);
+  color: var(--vr-text);
+  outline: none;
+  transition: border-color 0.15s;
+  margin-left: auto;
+}
+.vr-fleet-search-input::placeholder { color: var(--vr-dim); }
+.vr-fleet-search-input:focus { border-color: var(--vr-info); }
+
+/* ── Sortable table headers ── */
+.vr-fleet-th-sort { cursor: pointer; user-select: none; }
+.vr-fleet-th-sort:hover { color: var(--vr-text); }
+.vr-fleet-sort-arrow { font-size: 10px; margin-left: 2px; }
+
+/* ── Inventory: tile grid + detail split ── */
+.vr-fleet-inv-split {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--vr-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--vr-surface);
+  min-height: 360px;
+}
+.vr-fleet-inv-grid-pane {
+  flex: 1;
+  min-width: 0;
+  padding: 16px;
+  overflow-y: auto;
+  max-height: 480px;
+}
+.vr-fleet-inv-detail {
+  width: 220px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--vr-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Detail panel header ── */
+.vr-fleet-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.vr-fleet-detail-id {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vr-text);
+}
+
+/* ── Detail rows ── */
+.vr-fleet-detail-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.vr-fleet-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vr-fleet-detail-row .vr-caption {
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+/* ── Detail actions ── */
+.vr-fleet-detail-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--vr-border);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
    EXTRACTED INLINE STYLES (for responsive overrides)
    ═══════════════════════════════════════════════════════════════ */
 
@@ -2337,6 +2869,20 @@
     width: 100%;
     max-height: 50vh;
   }
+
+  /* Fleet Dashboard — responsive */
+  .vr-fleet-layout { flex-direction: column; }
+  .vr-fleet-sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .vr-fleet-device-header { flex-direction: row; gap: 12px; align-items: center; }
+  .vr-fleet-device-image { width: 60px; height: 60px; }
+  .vr-fleet-device-select { width: auto; }
+  .vr-fleet-alerts { flex-direction: row; gap: 12px; flex-wrap: wrap; }
+  .vr-fleet-donut-block { flex-direction: column; }
+  .vr-fleet-donuts-row { flex-direction: column; }
+  .vr-fleet-inv-split { flex-direction: column; }
+  .vr-fleet-inv-detail { width: 100%; border-left: none; border-top: 1px solid var(--vr-border); }
+  .vr-fleet-inv-toolbar { flex-direction: column; gap: 8px; }
+  .vr-fleet-storage-grid { grid-template-columns: 1fr; }
 
   /* Playlists — stack columns */
   .vr-playlists-layout {

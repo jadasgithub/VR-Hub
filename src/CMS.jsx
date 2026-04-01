@@ -108,7 +108,7 @@ function buildSendSummary(sendId, sendDevices, sendApps) {
 }
 
 // ── MAIN COMPONENT ────────────────────────────────────────────────
-export default function CMS() {
+export default function CMS({ onNavigate }) {
   const [groupName, setGroupName]       = useState("Monday Morning Use of Force Training");
   const [openSends, setOpenSends]       = useState(new Set([1]));
   const [sendDevices, setSendDevices]   = useState(INIT_SEND_DEVICES);
@@ -633,7 +633,7 @@ export default function CMS() {
                 {__("Editing Send")} {selectingSend}
               </span>
             )}
-            <button className="vr-btn-ghost" style={{ fontSize: 11, padding: "4px 10px" }}>
+            <button className="vr-btn-ghost" style={{ fontSize: 11, padding: "4px 10px" }} onClick={() => onNavigate("fleet")}>
               {__("Device Management")} →
             </button>
           </div>

@@ -4,6 +4,7 @@ import {
   VRIcon,
   HomeIcon,
   CarPoliceIcon,
+  SecurityIcon,
   AdminIcon,
   ThemeIcon,
   SearchIcon,
@@ -19,6 +20,8 @@ import CMS from "./CMS";
 import Playlists from "./Playlists";
 import Configure from "./Configure";
 import Help from "./Help";
+import FleetDashboard from "./FleetDashboard";
+import AdminLanding from "./AdminLanding";
 import AxonAssist from "./AxonAssist";
 
 const pages = {
@@ -29,6 +32,8 @@ const pages = {
   configure: { label: __("Configure Training"),   component: Configure },
   insights:  { label: __("Insights"),             component: Insights },
   help:      { label: __("Help & Resources"),     component: Help },
+  admin:     { label: __("Administration"),        component: AdminLanding },
+  fleet:     { label: __("Device Management"),    component: FleetDashboard },
 };
 
 function NavDots({ expanded }) {
@@ -45,7 +50,8 @@ export default function App({ theme, onToggleTheme, layer, onToggleLayer }) {
   const [navExpanded, setNavExpanded] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const PageComponent = pages[currentPage].component;
-  const isSubPage = currentPage !== "hub";
+  const isSubPage = currentPage !== "hub" && currentPage !== "admin";
+  const isAdminSection = currentPage === "admin" || currentPage === "fleet";
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -84,7 +90,7 @@ export default function App({ theme, onToggleTheme, layer, onToggleLayer }) {
           <div className="vr-nav-divider" />
 
           <button
-            className="vr-nav-item vr-nav-item--active"
+            className={`vr-nav-item${!isAdminSection ? " vr-nav-item--active" : ""}`}
             onClick={() => navigateTo("hub")}
           >
             <VRIcon style={{ width: 18, height: 18, flexShrink: 0 }} />
@@ -96,7 +102,10 @@ export default function App({ theme, onToggleTheme, layer, onToggleLayer }) {
             <span className="vr-nav-label">{__("Fleet")}</span>
           </button>
 
-          <button className="vr-nav-item" onClick={() => {}}>
+          <button
+            className={`vr-nav-item${currentPage === "admin" || currentPage === "fleet" ? " vr-nav-item--active" : ""}`}
+            onClick={() => navigateTo("admin")}
+          >
             <AdminIcon style={{ width: 18, height: 18, flexShrink: 0 }} />
             <span className="vr-nav-label">{__("Admin")}</span>
           </button>
@@ -150,7 +159,28 @@ export default function App({ theme, onToggleTheme, layer, onToggleLayer }) {
             >
               <MenuIcon style={{ width: 20, height: 20 }} />
             </button>
-            {isSubPage ? (
+            {currentPage === "hub" ? (
+              <>
+                <span className="vr-topbar-title">{__("VR Training")}</span>
+                <span className="vr-topbar-stamp">{__("VR Training")}</span>
+              </>
+            ) : currentPage === "admin" ? (
+              <>
+                <span className="vr-topbar-title">{__("Administration")}</span>
+                <span className="vr-topbar-stamp">{__("Admin")}</span>
+              </>
+            ) : currentPage === "fleet" ? (
+              <>
+                <button
+                  className="vr-topbar-back"
+                  onClick={() => navigateTo("admin")}
+                >
+                  ← {__("Administration")}
+                </button>
+                <span className="vr-topbar-sep">/</span>
+                <span className="vr-topbar-title">{pages[currentPage].label}</span>
+              </>
+            ) : (
               <>
                 <button
                   className="vr-topbar-back"
@@ -160,11 +190,6 @@ export default function App({ theme, onToggleTheme, layer, onToggleLayer }) {
                 </button>
                 <span className="vr-topbar-sep">/</span>
                 <span className="vr-topbar-title">{pages[currentPage].label}</span>
-              </>
-            ) : (
-              <>
-                <span className="vr-topbar-title">{__("VR Training")}</span>
-                <span className="vr-topbar-stamp">{__("VR Training")}</span>
               </>
             )}
           </div>
