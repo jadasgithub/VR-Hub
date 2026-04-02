@@ -58,8 +58,60 @@ const mockSessions = [
   { officer: "Zimmerman, Sara",   scenario: "Traffic Stop II: DUI Stop",            type: "vRBT",              date: "Mar 10, 2026", status: "Completed"  },
 ];
 
+function Checkbox({ checked, indeterminate, onChange }) {
+  const active = checked || indeterminate;
+  return (
+    <div
+      onClick={e => { e.stopPropagation(); onChange(); }}
+      style={{
+        width: 16, height: 16, borderRadius: 4, flexShrink: 0,
+        border: `1.5px solid ${active ? "var(--vr-info)" : "var(--vr-border-hover)"}`,
+        background: checked ? "var(--vr-info)" : "transparent",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        cursor: "pointer", transition: "all 0.12s ease",
+      }}
+    >
+      {checked && (
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+          <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+      {indeterminate && !checked && (
+        <svg width="8" height="2" viewBox="0 0 8 2" fill="none">
+          <path d="M1 1H7" stroke="var(--vr-info)" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      )}
+    </div>
+  );
+}
+
 export default function AfterActionReviews() {
   const [filterOpen, setFilterOpen] = useState(false);
+  const [selected, setSelected] = useState(new Set());
+
+  const allSelected = selected.size === mockSessions.length;
+  const someSelected = selected.size > 0 && !allSelected;
+
+  function toggleAll() {
+    if (allSelected) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(mockSessions.map((_, i) => i)));
+    }
+  }
+
+  function toggleRow(i) {
+    setSelected(prev => {
+      const next = new Set(prev);
+      next.has(i) ? next.delete(i) : next.add(i);
+      return next;
+    });
+  }
+
+  function handleExport() {
+    const rows = [...selected].sort((a, b) => a - b).map(i => mockSessions[i]);
+    console.log("Exporting", rows.length, "sessions:", rows);
+  }
 
   return (
     <div className="vr-sub-page">
@@ -73,9 +125,23 @@ export default function AfterActionReviews() {
             <FilterOutlineIcon style={{ width: 15, height: 15 }} />
             {__("Filter")}
           </button>
-          <button className="vr-btn-primary">
+          <button
+            className="vr-btn-secondary"
+            onClick={() => {
+              console.log("Exporting all", mockSessions.length, "sessions:", mockSessions);
+            }}
+          >
             <FileDownloadIcon style={{ width: 15, height: 15 }} />
-            {__("Export")}
+            {__("Export All")}
+          </button>
+          <button
+            className="vr-btn-primary"
+            onClick={handleExport}
+            disabled={selected.size === 0}
+            style={{ opacity: selected.size === 0 ? 0.4 : 1 }}
+          >
+            <FileDownloadIcon style={{ width: 15, height: 15 }} />
+            {selected.size > 0 ? `Export (${selected.size})` : __("Export Selected")}
           </button>
         </div>
       </div>
@@ -111,24 +177,41 @@ export default function AfterActionReviews() {
       <div className="vr-panel">
         <div className="vr-panel-header">
           <p className="vr-panel-title">{__("Recent Sessions")}</p>
-          <span className="vr-stamp-blue">{__("54 sessions")}</span>
+          <div className="vr-row" style={{ gap: 12 }}>
+            <span className="vr-stamp-blue">
+              {selected.size > 0 ? `${selected.size} selected` : __("54 sessions")}
+            </span>
+            <Checkbox checked={allSelected} indeterminate={someSelected} onChange={toggleAll} />
+          </div>
         </div>
-        <div className="vr-panel-body vr-session-list">
+        <div className="vr-panel-body" style={{ padding: "0 20px", maxHeight: 480, overflowY: "auto" }}>
           {mockSessions.map((s, i) => (
-            <div key={i} className="vr-list-row">
-              <div className="vr-col">
-                <span className="vr-body-sm">{s.officer}</span>
-                <span className="vr-caption">{s.type}: {s.scenario}</span>
+            <div
+              key={i}
+              className="vr-list-row"
+              onClick={() => toggleRow(i)}
+              style={{
+                background: selected.has(i) ? "var(--color-axon-accent-dim)" : "transparent",
+                cursor: "pointer",
+                margin: "0 -20px",
+                padding: "12px 20px",
+              }}
+            >
+              <div className="vr-row" style={{ gap: 12, flex: 1, minWidth: 0 }}>
+                <div className="vr-col">
+                  <span className="vr-body-sm">{s.officer}</span>
+                  <span className="vr-caption">{s.type}: {s.scenario}</span>
+                </div>
               </div>
-              <div className="vr-row vr-row--gap-l vr-list-row-meta">
-                <span className="vr-caption vr-list-row-date">{s.date}</span>
-                <span className={`vr-list-row-status ${s.status === "Completed" ? "vr-stamp-green" : "vr-stamp-red"}`}>{s.status}</span>
+              <div className="vr-row vr-row--gap-l" style={{ alignItems: "center", flexShrink: 0 }}>
+                <span className="vr-caption" style={{ minWidth: 90, textAlign: "right" }}>{s.date}</span>
+                <span className={s.status === "Completed" ? "vr-stamp-green" : "vr-stamp-red"} style={{ minWidth: 90, textAlign: "center" }}>{s.status}</span>
+                <Checkbox checked={selected.has(i)} onChange={() => toggleRow(i)} />
               </div>
             </div>
           ))}
         </div>
       </div>
-
 
     </div>
   );
