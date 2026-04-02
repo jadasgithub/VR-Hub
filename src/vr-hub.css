@@ -230,6 +230,8 @@
    SHELL LAYOUT
    ═══════════════════════════════════════════════════════════════ */
 
+.vr-shell button { outline: none; }
+
 /* ── 3px accent bar at very top (full width) ── */
 .vr-accent-bar {
   position: fixed;
@@ -744,10 +746,12 @@
   align-items: center;
   gap: 7px;
   font-size: 13px;
-  font-weight: 600;
-  padding: 8px 16px;
+  font-weight: 500;
+  padding: 6px 12px;
   border-radius: var(--vr-radius-item);
   border: none;
+  background: transparent;
+  color: var(--vr-muted);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -768,13 +772,6 @@
 }
 .vr-btn-secondary:hover { background: rgba(54, 57, 61, 0.06); }
 .vr-shell[data-theme="dark"] .vr-btn-secondary:hover { background: rgba(255,255,255,0.07); }
-
-.vr-btn-ghost {
-  background: transparent;
-  color: var(--vr-muted);
-  padding: 6px 12px;
-  font-weight: 500;
-}
 .vr-btn-ghost:hover { background: rgba(54, 57, 61, 0.06); }
 .vr-shell[data-theme="dark"] .vr-btn-ghost:hover { background: rgba(255,255,255,0.07); }
 
@@ -1484,22 +1481,8 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 
-.vr-fleet-topbar {
-  background: var(--vr-surface-hover); border-bottom: 1px solid var(--vr-border-light);
-  display: flex; align-items: center; gap: 18px; padding: 9px 18px; flex-shrink: 0;
-}
-.vr-fleet-status-pill { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--vr-muted); }
-.vr-fleet-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.vr-fleet-dot--ready { background: var(--vr-positive); }
-.vr-fleet-dot--loading { background: var(--vr-info); animation: vr-pulse 1.2s infinite; }
-.vr-fleet-dot--offline { background: var(--vr-dim); }
-.vr-fleet-dot--failed { background: var(--vr-alert); }
 @keyframes vr-pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
 
-.vr-fleet-filters {
-  padding: 8px 18px; border-bottom: 1px solid var(--vr-border);
-  display: flex; align-items: center; gap: 6px; background: var(--vr-surface); flex-shrink: 0;
-}
 .vr-fleet-filter-btn {
   padding: 3px 11px; border-radius: 100px; font-size: 12px; font-weight: 500;
   cursor: pointer; border: 1px solid var(--vr-border); background: transparent;
@@ -1507,11 +1490,6 @@
 }
 .vr-fleet-filter-btn--active { background: var(--vr-text); color: var(--vr-surface); border-color: var(--vr-text); }
 .vr-fleet-filter-btn:hover:not(.vr-fleet-filter-btn--active) { background: var(--vr-surface-hover); color: var(--vr-muted); }
-
-.vr-fleet-body { flex: 1; display: flex; overflow: hidden; }
-
-/* Grid side */
-.vr-fleet-grid-area { flex: 1; overflow-y: auto; padding: 14px 16px; border-right: 1px solid var(--vr-border); }
 
 .vr-selecting-banner {
   display: none; align-items: center; gap: 8px;
@@ -1523,10 +1501,6 @@
 .vr-selecting-banner-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--vr-info); animation: vr-pulse 1.2s infinite; flex-shrink: 0; }
 .vr-shell[data-theme="dark"] .vr-selecting-banner { background: rgba(107,193,255,0.08); }
 
-.vr-fleet-section-label {
-  font-size: 11px; font-weight: 700; color: var(--vr-dim);
-  text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 7px;
-}
 .vr-device-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
   gap: 5px; margin-bottom: 14px;
@@ -1541,9 +1515,9 @@
 }
 .vr-tile:hover { border-color: var(--vr-border-hover); box-shadow: 0 2px 6px rgba(0,0,0,0.07); transform: translateY(-1px); }
 .vr-tile--sel { border-color: var(--vr-info) !important; box-shadow: 0 0 0 3px rgba(22,90,138,0.12) !important; background: rgba(22,90,138,0.05); }
-.vr-tile--ready { border-color: rgba(46,94,24,0.35); }
-.vr-tile--loading { border-color: rgba(22,90,138,0.35); }
-.vr-tile--failed { border-color: rgba(160,19,19,0.4); background: rgba(160,19,19,0.03); }
+.vr-tile--ready, .vr-tile--current { border-color: rgba(46,94,24,0.35); }
+.vr-tile--loading, .vr-tile--pending { border-color: rgba(22,90,138,0.35); }
+.vr-tile--failed, .vr-tile--outdated { border-color: rgba(160,19,19,0.4); background: rgba(160,19,19,0.03); }
 .vr-tile--offline { opacity: 0.42; }
 .vr-tile--in-send { border-color: var(--vr-info); }
 .vr-tile--unavail { opacity: 0.25; pointer-events: none; }
@@ -2275,28 +2249,6 @@
   justify-content: space-between;
   align-items: center;
 }
-.vr-fleet-storage-fill--warn {
-  background: var(--vr-alert);
-}
-.vr-fleet-storage-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 10px;
-}
-.vr-fleet-storage-device {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.vr-fleet-storage-device-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.vr-fleet-storage-device .vr-fleet-storage-bar {
-  height: 6px;
-}
-
 /* ── Scheduled Updates ── */
 .vr-fleet-schedule-list {
   display: flex;
@@ -2360,19 +2312,6 @@
   margin-top: 8px;
 }
 
-/* ── Donut + progress block ── */
-.vr-fleet-donut-block {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.vr-fleet-donut-meta {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 /* ── Donut charts ── */
 .vr-donut-card {
   display: flex;
@@ -2389,20 +2328,6 @@
 .vr-donut-sub {
   font-size: 8px;
   fill: var(--vr-muted);
-}
-
-/* ── Fleet progress bars ── */
-.vr-fleet-progress-bar {
-  width: 100%;
-  height: 8px;
-  background: var(--vr-border);
-  border-radius: 100px;
-  overflow: hidden;
-}
-.vr-fleet-progress-fill {
-  height: 100%;
-  border-radius: 100px;
-  transition: width 0.4s ease;
 }
 
 /* ── Inventory: status bar ── */
@@ -2489,6 +2414,7 @@
   color: var(--vr-fg);
   border-bottom: 1px solid var(--vr-border);
 }
+.vr-fleet-table .vr-col-status { font-size: 12px; }
 .vr-fleet-table tr:last-child td { border-bottom: none; }
 .vr-fleet-table tbody tr { cursor: pointer; transition: background 0.12s; }
 .vr-fleet-table tbody tr:hover { background: var(--vr-hover); }
