@@ -230,8 +230,20 @@
    SHELL LAYOUT
    ═══════════════════════════════════════════════════════════════ */
 
-.vr-shell button, .vr-shell a { outline: none; }
-.vr-shell button:focus-visible, .vr-shell a:focus-visible { outline: none; box-shadow: none; }
+.vr-shell button,
+.vr-shell a,
+.vr-shell [role="tab"] {
+  outline: none !important;
+}
+.vr-shell button:focus,
+.vr-shell button:focus-visible,
+.vr-shell a:focus,
+.vr-shell a:focus-visible,
+.vr-shell [role="tab"]:focus,
+.vr-shell [role="tab"]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 /* ── 3px accent bar at very top (full width) ── */
 .vr-accent-bar {
