@@ -1546,6 +1546,31 @@
 .vr-tile-name { font-size: 10px; font-weight: 700; color: var(--vr-muted); }
 .vr-tile-serial { font-size: 8.5px; color: var(--vr-dim); font-family: monospace; }
 
+/* CMS Fleet topbar, filters, body grid (used by CMS.jsx) */
+.vr-fleet-topbar {
+  background: var(--vr-surface-hover); border-bottom: 1px solid var(--vr-border-light);
+  display: flex; align-items: center; gap: 18px; padding: 9px 18px; flex-shrink: 0;
+}
+.vr-fleet-status-pill { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--vr-muted); }
+.vr-fleet-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.vr-fleet-dot--ready { background: var(--vr-positive); }
+.vr-fleet-dot--loading { background: var(--vr-info); animation: vr-pulse 1.2s infinite; }
+.vr-fleet-dot--offline { background: var(--vr-dim); }
+.vr-fleet-dot--failed { background: var(--vr-alert); }
+
+.vr-fleet-filters {
+  padding: 8px 18px; border-bottom: 1px solid var(--vr-border);
+  display: flex; align-items: center; gap: 6px; background: var(--vr-surface); flex-shrink: 0;
+}
+
+.vr-fleet-body { flex: 1; display: flex; overflow: hidden; }
+.vr-fleet-grid-area { flex: 1; overflow-y: auto; padding: 14px 16px; border-right: 1px solid var(--vr-border); }
+
+.vr-fleet-section-label {
+  font-size: 11px; font-weight: 700; color: var(--vr-dim);
+  text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 7px;
+}
+
 /* Detail panel */
 .vr-fleet-detail { width: 260px; flex-shrink: 0; background: var(--vr-surface); display: flex; flex-direction: column; overflow: hidden; }
 .vr-detail-placeholder {
